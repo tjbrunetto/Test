@@ -8,6 +8,7 @@ public class NewBehaviourScript : MonoBehaviour {
 	void Start () {
 		print ("You found the egg!");
 		print ("Something Changed!");
+		print ("Added something else#!");
 	}
 	
 	// Update is called once per frame
