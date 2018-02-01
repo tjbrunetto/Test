@@ -9,7 +9,6 @@ namespace UnityStandardAssets.Vehicles.Ball
         private Ball ball; // Reference to the ball controller.
 
         private Vector3 move;
-        // the world-relative desired move direction, calculated from the camForward and user input.
 
         private Transform cam; // A reference to the main camera in the scenes transform
         private Vector3 camForward; // The current forward direction of the camera
@@ -18,11 +17,9 @@ namespace UnityStandardAssets.Vehicles.Ball
 
         private void Awake()
         {
-            // Set up the reference.
             ball = GetComponent<Ball>();
 
 
-            // get the transform of the main camera
             if (Camera.main != null)
             {
                 cam = Camera.main.transform;
@@ -31,29 +28,28 @@ namespace UnityStandardAssets.Vehicles.Ball
             {
                 Debug.LogWarning(
                     "Warning: no main camera found. Ball needs a Camera tagged \"MainCamera\", for camera-relative controls.");
-                // we use world-relative controls in this case, which may not be what the user wants, but hey, we warned them!
             }
         }
 
 
         private void Update()
         {
-            // Get the axis and jump input.
 
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
             jump = CrossPlatformInputManager.GetButton("Jump");
 
-            // calculate move direction
             if (cam != null)
             {
-                // calculate camera relative direction to move:
+            	//I do not understand how Vector3.Scale is used here. The docs say it multiplies the vectors together but even in the example I do not understand how they get to the 
+            	//numbers presented in the documents. Normalized also escapes me as it says that the object keeps its direction but its length is 1. What does this mean? Maybe this
+            	//Affects the lens of the camera so that it cannot distort.  
+            	
                 camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
                 move = (v*camForward + h*cam.right).normalized;
             }
             else
             {
-                // we use world-relative directions in the case of no main camera
                 move = (v*Vector3.forward + h*Vector3.right).normalized;
             }
         }
@@ -61,7 +57,6 @@ namespace UnityStandardAssets.Vehicles.Ball
 
         private void FixedUpdate()
         {
-            // Call the Move function of the ball controller
             ball.Move(move, jump);
             jump = false;
         }
