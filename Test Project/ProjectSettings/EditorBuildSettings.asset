@@ -8,3 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Twin Sticks.unity
     guid: d431935722afc924799a017070e281b0
+  - enabled: 1
+    path: Assets/_Scenes/Test.unity
+    guid: b8350d44f6b220f44bb0f87b43195a36
+  - enabled: 1
+    path: Assets/_Scenes/Test2.unity
+    guid: aaeed4f6eebfccc4fbe14ed30472e749
